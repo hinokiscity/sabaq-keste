@@ -52,6 +52,9 @@ select,input{width:100%;padding:14px;border:1px solid #d8e1ee;border-radius:14px
   <div id="todayName" class="today-name"></div>
   <div id="todayLessons"></div>
   <button class="btn primary" onclick="openTodayFull()" style="margin-top:10px">📚 To‘liq jadval</button>
+</div><div id="announcementCard" class="announcement-card" style="display:none">
+  <div class="announcement-title">📢 E’lonlar</div>
+  <div id="announcements"></div>
 </div>
 <div id="myGroupCard" class="saved-card" style="display:none">
   <div class="saved-title">⭐ Mening guruhim</div>
@@ -104,6 +107,7 @@ function saveMyGroup(){
  const saved={course:courseEl.value,index:Number(groupEl.value)};
  localStorage.setItem('sabaqMyGroup',JSON.stringify(saved));
  updateMyGroupCard();
+ updateTodayCard();
  updateTodayCard();
 }
 function getTodayName(){
@@ -159,6 +163,7 @@ function forgetMyGroup(){
  localStorage.removeItem('sabaqMyGroup');
  updateMyGroupCard();
  updateTodayCard();
+ updateTodayCard();
 }
 function openMyGroup(){
  const saved=getSavedGroup();
@@ -192,6 +197,9 @@ function renderDay(g,d){
 }
 function goHome(){document.getElementById('schedule').classList.add('hidden');document.getElementById('home').classList.remove('hidden');}
 init();
+updateMyGroupCard();
+updateTodayCard();
+updateAnnouncements();
 </script>
 </body>
 </html>
