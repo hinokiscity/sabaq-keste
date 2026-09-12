@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Sabaq Keste</title>
+<style>
+*{box-sizing:border-box} body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#14213d}
+.app{max-width:520px;margin:auto;min-height:100vh;background:#fff}
+.header{padding:20px 18px 12px;border-bottom:1px solid #e8edf5;position:sticky;top:0;background:#fff;z-index:3}
+.logo{font-size:25px;font-weight:800}.sub{color:#6b7890;margin-top:4px}
+.content{padding:18px}
+h2{margin:8px 0 14px}
+.card{border:0;border-radius:18px;padding:18px;margin:12px 0;background:#eef5ff;box-shadow:0 4px 16px #dfe7f2}
+.card button{width:100%;border:0;background:transparent;text-align:left;font-size:18px;font-weight:700;color:#14213d;cursor:pointer}
+.small{display:block;font-size:14px;color:#66748c;font-weight:400;margin-top:6px}
+select{width:100%;padding:14px;border:1px solid #d8e0ec;border-radius:14px;font-size:16px;background:#fff;margin-bottom:12px}
+.notice{padding:14px;border-radius:14px;background:#f2f7ff;color:#47617f;font-size:14px;line-height:1.5}
+#schedule{display:none}.back{border:0;background:none;color:#2374e1;font-size:16px;padding:0 0 12px}
+.days{display:flex;gap:7px;overflow:auto;margin:12px 0 16px}.day{flex:0 0 auto;border:0;border-radius:12px;padding:10px 13px;background:#edf1f7;color:#253653}.day.active{background:#2374e1;color:white}
+.lesson{display:flex;gap:12px;border:1px solid #e6ebf3;border-radius:16px;padding:14px;margin:10px 0;box-shadow:0 3px 12px #e9eef5}
+.time{font-weight:800;min-width:62px}.subject{font-weight:700}.meta{font-size:13px;color:#718096;margin-top:5px}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header"><div class="logo">🎓 Sabaq Keste</div><div class="sub">Universitet dars jadvali</div></div>
+  <div class="content">
+    <section id="home">
+      <h2>Guruhingizni tanlang</h2>
+      <select id="group">
+        <option value="">— Guruhni tanlang —</option>
+        <option>309-25 JK</option>
+        <option>305-25 AX</option>
+        <option>311-25 JQ</option>
+        <option>317-25 MR</option>
+        <option>318-25 IK</option>
+        <option>315-25 TVT</option>
+        <option>303-25 TK</option>
+        <option>109-25 KZ</option>
+        <option>105-25 AX</option>
+        <option>111-25 JI</option>
+        <option>103-25 TK</option>
+        <option>115-24 MR</option>
+        <option>115-25 TVT</option>
+      </select>
+      <button class="card" onclick="openSchedule()">📚 Jadvalni ko‘rish<span class="small">Tanlangan guruhning haftalik dars jadvali</span></button>
+      <div class="notice">Bu hozirgi <b>1-kurs</b> uchun birinchi namuna. Keyingi bosqichda siz yuborgan rasm jadvalini to‘liq ma’lumotlar bilan bog‘laymiz.</div>
+    </section>
+
+    <section id="schedule">
+      <button class="back" onclick="goBack()">← Guruh tanlash</button>
+      <h2 id="title">Guruh</h2>
+      <div class="days">
+        <button class="day active">Du</button><button class="day">Se</button><button class="day">Ch</button>
+        <button class="day">Pa</button><button class="day">Ju</button><button class="day">Sh</button>
+      </div>
+      <h3>Dushanba</h3>
+      <div class="lesson"><div class="time">08:30<br><span style="font-weight:400">10:00</span></div><div><div class="subject">Dars jadvalidagi fan</div><div class="meta">Auditoriya • O‘qituvchi</div></div></div>
+      <div class="lesson"><div class="time">10:15<br><span style="font-weight:400">11:45</span></div><div><div class="subject">Dars jadvalidagi fan</div><div class="meta">Auditoriya • O‘qituvchi</div></div></div>
+      <div class="lesson"><div class="time">12:00<br><span style="font-weight:400">13:30</span></div><div><div class="subject">Dars jadvalidagi fan</div><div class="meta">Auditoriya • O‘qituvchi</div></div></div>
+      <div class="notice">⚠️ Jadval ma’lumotlari administrator tomonidan yangilanadi.</div>
+    </section>
+  </div>
+</div>
+<script>
+function openSchedule(){
+ const g=document.getElementById('group').value;
+ if(!g){alert("Avval guruhni tanlang.");return}
+ document.getElementById('home').style.display='none';
+ document.getElementById('schedule').style.display='block';
+ document.getElementById('title').textContent=g;
+}
+function goBack(){document.getElementById('schedule').style.display='none';document.getElementById('home').style.display='block'}
+document.querySelectorAll('.day').forEach(b=>b.onclick=()=>{document.querySelectorAll('.day').forEach(x=>x.classList.remove('active'));b.classList.add('active')});
+</script>
+</body>
+</html>
