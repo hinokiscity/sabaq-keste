@@ -3,77 +3,147 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#2374e1">
 <title>Sabaq Keste</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="data.js"></script>
 <style>
-*{box-sizing:border-box} body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#14213d}
-.app{max-width:520px;margin:auto;min-height:100vh;background:#fff}
-.header{padding:20px 18px 12px;border-bottom:1px solid #e8edf5;position:sticky;top:0;background:#fff;z-index:3}
-.logo{font-size:25px;font-weight:800}.sub{color:#6b7890;margin-top:4px}
-.content{padding:18px}
-h2{margin:8px 0 14px}
-.card{border:0;border-radius:18px;padding:18px;margin:12px 0;background:#eef5ff;box-shadow:0 4px 16px #dfe7f2}
-.card button{width:100%;border:0;background:transparent;text-align:left;font-size:18px;font-weight:700;color:#14213d;cursor:pointer}
-.small{display:block;font-size:14px;color:#66748c;font-weight:400;margin-top:6px}
-select{width:100%;padding:14px;border:1px solid #d8e0ec;border-radius:14px;font-size:16px;background:#fff;margin-bottom:12px}
-.notice{padding:14px;border-radius:14px;background:#f2f7ff;color:#47617f;font-size:14px;line-height:1.5}
-#schedule{display:none}.back{border:0;background:none;color:#2374e1;font-size:16px;padding:0 0 12px}
-.days{display:flex;gap:7px;overflow:auto;margin:12px 0 16px}.day{flex:0 0 auto;border:0;border-radius:12px;padding:10px 13px;background:#edf1f7;color:#253653}.day.active{background:#2374e1;color:white}
-.lesson{display:flex;gap:12px;border:1px solid #e6ebf3;border-radius:16px;padding:14px;margin:10px 0;box-shadow:0 3px 12px #e9eef5}
-.time{font-weight:800;min-width:62px}.subject{font-weight:700}.meta{font-size:13px;color:#718096;margin-top:5px}
+*{box-sizing:border-box}
+:root{--blue:#2374e1;--ink:#13233f;--muted:#6c7890;--bg:#f4f7fb}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+.app{max-width:620px;margin:auto;min-height:100vh;background:#fff}
+.header{padding:18px 18px 14px;border-bottom:1px solid #e7ebf2;position:sticky;top:0;background:#fff;z-index:5}
+.logo{font-size:24px;font-weight:800}.sub{font-size:14px;color:var(--muted);margin-top:4px}
+.content{padding:16px}
+label{display:block;font-size:13px;font-weight:700;margin:9px 0 7px;color:#44506a}
+select{width:100%;padding:14px 13px;border:1px solid #d9e1ed;border-radius:14px;font-size:16px;background:#fff}
+.hero{padding:16px;border-radius:18px;background:linear-gradient(135deg,#eef5ff,#f7fbff);margin-bottom:15px}
+.hero h1{font-size:22px;margin:0 0 6px}.hero p{margin:0;color:var(--muted);line-height:1.45}
+.actions{display:flex;gap:8px;margin:10px 0}.btn{border:0;border-radius:12px;padding:11px 14px;background:#edf2f9;color:#24405f;font-weight:700}.btn.primary{background:var(--blue);color:#fff}
 .hidden{display:none}
+.back{border:0;background:none;color:var(--blue);padding:0 0 8px;font-size:15px}
+.title-row{display:flex;align-items:center;justify-content:space-between;gap:8px}.title-row h2{margin:4px 0 12px;font-size:23px}
+.days{display:flex;gap:7px;overflow:auto;padding-bottom:4px;margin:6px 0 14px}
+.day{flex:0 0 auto;border:0;border-radius:12px;padding:10px 13px;background:#edf1f7;color:#253653;font-weight:700}
+.day.active{background:var(--blue);color:#fff}
+.section{margin:12px 0}.section-head{font-weight:800;font-size:18px;margin:12px 0 8px}
+.lesson{display:grid;grid-template-columns:72px 1fr auto;gap:12px;align-items:start;padding:14px;border:1px solid #e4eaf2;border-radius:16px;margin:9px 0;box-shadow:0 3px 12px rgba(30,55,90,.06)}
+.para{font-weight:800;color:var(--blue)}.para small{display:block;color:var(--muted);font-weight:400;margin-top:3px}
+.subject{font-weight:800;line-height:1.3}.teacher,.meta{font-size:13px;color:var(--muted);margin-top:5px;line-height:1.35}
+.room{font-size:12px;padding:6px 8px;border-radius:9px;background:#f0f4fa;color:#4d5a6e;white-space:nowrap}
+.empty{padding:18px;border-radius:14px;background:#f4f7fb;color:var(--muted);text-align:center}
+.notice{padding:13px 14px;border-radius:14px;background:#f2f7ff;color:#496481;font-size:13px;line-height:1.45;margin-top:15px}
+.small{font-size:12px;color:var(--muted)}
 </style>
 </head>
 <body>
 <div class="app">
-  <div class="header"><div class="logo">🎓 Sabaq Keste</div><div class="sub">Universitet dars jadvali</div></div>
+  <div class="header">
+    <div class="logo">🎓 Sabaq Keste</div>
+    <div class="sub">ETIF · 2026–2027</div>
+  </div>
+
   <div class="content">
     <section id="home">
-      <h2>Guruhingizni tanlang</h2>
-      <select id="group">
-        <option value="">— Guruhni tanlang —</option>
-        <option>309-25 JK</option>
-        <option>305-25 AX</option>
-        <option>311-25 JQ</option>
-        <option>317-25 MR</option>
-        <option>318-25 IK</option>
-        <option>315-25 TVT</option>
-        <option>303-25 TK</option>
-        <option>109-25 KZ</option>
-        <option>105-25 AX</option>
-        <option>111-25 JI</option>
-        <option>103-25 TK</option>
-        <option>115-24 MR</option>
-        <option>115-25 TVT</option>
-      </select>
-      <button class="card" onclick="openSchedule()">📚 Jadvalni ko‘rish<span class="small">Tanlangan guruhning haftalik dars jadvali</span></button>
-      <div class="notice">Bu hozirgi <b>1-kurs</b> uchun birinchi namuna. Keyingi bosqichda siz yuborgan rasm jadvalini to‘liq ma’lumotlar bilan bog‘laymiz.</div>
+      <div class="hero">
+        <h1>Universitet dars jadvali</h1>
+        <p>Guruhingizni tanlang va haftalik jadvalni Telegram ichida qulay ko‘ring.</p>
+      </div>
+      <label for="course">Kurs</label>
+      <select id="course"></select>
+      <label for="group">Guruh</label>
+      <select id="group"></select>
+      <div class="actions">
+        <button class="btn primary" onclick="showSchedule()">📚 Jadvalni ko‘rish</button>
+        <button class="btn" onclick="resetFilters()">Tozalash</button>
+      </div>
+      <div class="notice">Jadval ma’lumotlari yuborilgan <b>ETIF_2026-2027.xlsx</b> faylidan olindi. Para vaqtlari Excelda berilmaganligi sababli hozircha I–IV para ko‘rsatiladi.</div>
     </section>
 
-    <section id="schedule">
-      <button class="back" onclick="goBack()">← Guruh tanlash</button>
-      <h2 id="title">Guruh</h2>
-      <div class="days">
-        <button class="day active">Du</button><button class="day">Se</button><button class="day">Ch</button>
-        <button class="day">Pa</button><button class="day">Ju</button><button class="day">Sh</button>
-      </div>
-      <h3>Dushanba</h3>
-      <div class="lesson"><div class="time">08:30<br><span style="font-weight:400">10:00</span></div><div><div class="subject">Dars jadvalidagi fan</div><div class="meta">Auditoriya • O‘qituvchi</div></div></div>
-      <div class="lesson"><div class="time">10:15<br><span style="font-weight:400">11:45</span></div><div><div class="subject">Dars jadvalidagi fan</div><div class="meta">Auditoriya • O‘qituvchi</div></div></div>
-      <div class="lesson"><div class="time">12:00<br><span style="font-weight:400">13:30</span></div><div><div class="subject">Dars jadvalidagi fan</div><div class="meta">Auditoriya • O‘qituvchi</div></div></div>
-      <div class="notice">⚠️ Jadval ma’lumotlari administrator tomonidan yangilanadi.</div>
+    <section id="schedule" class="hidden">
+      <button class="back" onclick="goHome()">← Guruh tanlash</button>
+      <div class="title-row"><h2 id="groupTitle"></h2><span class="small" id="specialty"></span></div>
+      <div class="days" id="days"></div>
+      <div id="scheduleBody"></div>
+      <div class="notice">⚠️ Jadvaldagi o‘zgarishlar uchun administratorning yangi faylini yuklash kifoya — Telegram havolasi o‘zgarmaydi.</div>
     </section>
   </div>
 </div>
+
 <script>
-function openSchedule(){
- const g=document.getElementById('group').value;
- if(!g){alert("Avval guruhni tanlang.");return}
- document.getElementById('home').style.display='none';
- document.getElementById('schedule').style.display='block';
- document.getElementById('title').textContent=g;
+const DATA = window.SABAQ_DATA;
+const dayOrder = ["Dushanba","Seshanba","Chorshanba","Payshanba","Juma","Shanba"];
+
+const courseSelect = document.getElementById("course");
+const groupSelect = document.getElementById("group");
+const home = document.getElementById("home");
+const schedule = document.getElementById("schedule");
+
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));}
+
+function init(){
+  courseSelect.innerHTML = '<option value="">— Kursni tanlang —</option>';
+  Object.keys(DATA.courses).forEach(c=>{
+    courseSelect.insertAdjacentHTML("beforeend", `<option value="${esc(c)}">${esc(c)}</option>`);
+  });
+  courseSelect.addEventListener("change", ()=>{
+    const groups = DATA.courses[courseSelect.value] || [];
+    groupSelect.innerHTML = '<option value="">— Guruhni tanlang —</option>';
+    groups.forEach((g,i)=>groupSelect.insertAdjacentHTML("beforeend", `<option value="${i}">${esc(g.name)}</option>`));
+  });
 }
-function goBack(){document.getElementById('schedule').style.display='none';document.getElementById('home').style.display='block'}
-document.querySelectorAll('.day').forEach(b=>b.onclick=()=>{document.querySelectorAll('.day').forEach(x=>x.classList.remove('active'));b.classList.add('active')});
+
+function showSchedule(){
+  if(!courseSelect.value || groupSelect.value===""){
+    alert("Avval kurs va guruhni tanlang.");
+    return;
+  }
+  const g = DATA.courses[courseSelect.value][Number(groupSelect.value)];
+  document.getElementById("groupTitle").textContent = g.name;
+  document.getElementById("specialty").textContent = g.specialty || "";
+  renderDays(g);
+  home.classList.add("hidden");
+  schedule.classList.remove("hidden");
+  if(window.Telegram?.WebApp){ Telegram.WebApp.expand(); }
+}
+
+function renderDays(g){
+  const daysEl = document.getElementById("days");
+  daysEl.innerHTML = "";
+  dayOrder.forEach((d,i)=>{
+    daysEl.insertAdjacentHTML("beforeend", `<button class="day ${i===0?'active':''}" onclick="selectDay('${d}',this)">${d.slice(0,2)}<br><small>${d}</small></button>`);
+  });
+  renderDay(g, dayOrder[0]);
+}
+
+function selectDay(day,btn){
+  document.querySelectorAll(".day").forEach(x=>x.classList.remove("active"));
+  btn.classList.add("active");
+  const g = DATA.courses[courseSelect.value][Number(groupSelect.value)];
+  renderDay(g,day);
+}
+
+function renderDay(g,day){
+  const items = (g.schedule||[]).filter(x=>x.day===day);
+  const body = document.getElementById("scheduleBody");
+  if(!items.length){
+    body.innerHTML = `<div class="section"><div class="section-head">${esc(day)}</div><div class="empty">Bu kun uchun dars kiritilmagan.</div></div>`;
+    return;
+  }
+  body.innerHTML = `<div class="section"><div class="section-head">${esc(day)}</div>` +
+    items.map(x=>`<div class="lesson">
+      <div class="para">${esc(x.para)}-para<small>${esc(x.para)}</small></div>
+      <div><div class="subject">${esc(x.subject || "Nomi ko‘rsatilmagan")}</div>
+      ${x.teacher?`<div class="teacher">👤 ${esc(x.teacher)}</div>`:""}
+      </div>
+      ${x.room?`<div class="room">🚪 ${esc(x.room)}</div>`:""}
+    </div>`).join("") + "</div>";
+}
+
+function goHome(){schedule.classList.add("hidden");home.classList.remove("hidden")}
+function resetFilters(){courseSelect.value="";groupSelect.innerHTML='<option value="">— Guruhni tanlang —</option>'}
+
+init();
 </script>
 </body>
 </html>
