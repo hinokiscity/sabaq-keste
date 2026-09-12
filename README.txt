@@ -1,1 +1,2 @@
-Sabaq Keste Mini App v3. Upload index.html and data.js to the GitHub repository root. GitHub Pages: main / root. Telegram Mini App URL remains the same.
+Sabaq Keste Mini App v4 — Mening guruhim funksiyasi.
+index.html va data.js fayllarini GitHub repository ildiziga yuklang.
