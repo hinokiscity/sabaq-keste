@@ -19,6 +19,10 @@ label{font-size:13px;font-weight:700;color:#53627a;display:block;margin:12px 0 7
 select,input{width:100%;padding:14px;border:1px solid #d8e1ee;border-radius:14px;font-size:16px;background:#fff;color:#10213d}
 .btn{border:0;border-radius:13px;padding:13px 16px;font-size:15px;font-weight:700;background:#eaf0f8;color:#284260}.primary{background:#2374e1;color:#fff}
 .row{display:flex;gap:8px;margin-top:10px}.row .btn{flex:1}
+.saved-card{padding:15px;border-radius:18px;background:#fff7df;border:1px solid #f2df9e;margin:12px 0 16px}
+.saved-title{font-size:14px;font-weight:800;color:#6a5313}
+.saved-name{font-size:18px;font-weight:800;margin-top:5px}
+.saved-card .row{margin-top:10px}
 .hidden{display:none}.back{border:0;background:none;color:#2374e1;padding:0 0 10px;font-size:15px}
 .headrow{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.headrow h2{font-size:23px;margin:0 0 3px}.spec{font-size:13px;color:#738098;text-align:right}
 .days{display:flex;gap:7px;overflow:auto;padding-bottom:4px;margin:12px 0}
@@ -37,6 +41,14 @@ select,input{width:100%;padding:14px;border:1px solid #d8e1ee;border-radius:14px
 <div class="content">
 <section id="home">
 <div class="hero"><h1>Universitet dars jadvali</h1><p>Kurs va guruhni tanlang. Jadvalni Telegram ichida ko‘ring.</p></div>
+<div id="myGroupCard" class="saved-card" style="display:none">
+  <div class="saved-title">⭐ Mening guruhim</div>
+  <div id="myGroupName" class="saved-name"></div>
+  <div class="row">
+    <button class="btn primary" onclick="openMyGroup()">📚 Jadvalni ochish</button>
+    <button class="btn" onclick="forgetMyGroup()">O‘chirish</button>
+  </div>
+</div>
 <label for="course">Kurs</label><select id="course"></select>
 <label for="search">Guruhni qidirish</label><input id="search" placeholder="Masalan: 309-25 JK">
 <label for="group">Guruh</label><select id="group"></select>
@@ -72,15 +84,51 @@ function loadGroups(){
  document.getElementById('count').textContent=courseEl.value?`${filtered.length} ta guruh topildi`:'';
 }
 function resetAll(){courseEl.value='';searchEl.value='';loadGroups();}
-function showSchedule(){
+function getSavedGroup(){
+ try { return JSON.parse(localStorage.getItem('sabaqMyGroup') || 'null'); }
+ catch(e){ return null; }
+}
+function saveMyGroup(){
+ const saved={course:courseEl.value,index:Number(groupEl.value)};
+ localStorage.setItem('sabaqMyGroup',JSON.stringify(saved));
+ updateMyGroupCard();
+}
+function updateMyGroupCard(){
+ const card=document.getElementById('myGroupCard'), name=document.getElementById('myGroupName'), saved=getSavedGroup();
+ if(!saved || !D.courses[saved.course] || !D.courses[saved.course][saved.index]){
+   card.style.display='none'; return;
+ }
+ const g=D.courses[saved.course][saved.index];
+ name.textContent=g.name+' · '+saved.course;
+ card.style.display='block';
+}
+function forgetMyGroup(){
+ localStorage.removeItem('sabaqMyGroup');
+ updateMyGroupCard();
+}
+function openMyGroup(){
+ const saved=getSavedGroup();
+ if(!saved || !D.courses[saved.course] || !D.courses[saved.course][saved.index]){
+   updateMyGroupCard(); return;
+ }
+ courseEl.value=saved.course;
+ loadGroups();
+ groupEl.value=String(saved.index);
+ showSchedule(false);
+}
+function showSchedule(saveChoice=true){
  if(!courseEl.value||groupEl.value===''){alert('Kurs va guruhni tanlang.');return;}
+ if(saveChoice) saveMyGroup();
  const g=currentGroups[Number(groupEl.value)];
  document.getElementById('groupTitle').textContent=g.name;
  document.getElementById('courseTitle').textContent=courseEl.value;
  document.getElementById('specialty').textContent=g.specialty||'';
- renderDays(g); document.getElementById('home').classList.add('hidden');document.getElementById('schedule').classList.remove('hidden');
- if(window.Telegram?.WebApp)Telegram.WebApp.expand();
+ renderDays(g);
+ document.getElementById('home').classList.add('hidden');
+ document.getElementById('schedule').classList.remove('hidden');
+ if(window.Telegram?.WebApp) Telegram.WebApp.expand();
 }
+
 function renderDays(g){const el=document.getElementById('days');el.innerHTML='';days.forEach((d,i)=>el.insertAdjacentHTML('beforeend',`<button class="day ${i===0?'active':''}" onclick="selectDay('${d}',this)">${d.slice(0,2)}<br><small>${d}</small></button>`));renderDay(g,days[0]);}
 function selectDay(d,b){document.querySelectorAll('.day').forEach(x=>x.classList.remove('active'));b.classList.add('active');const g=currentGroups[Number(groupEl.value)];renderDay(g,d);}
 function renderDay(g,d){
@@ -90,7 +138,6 @@ function renderDay(g,d){
 }
 function goHome(){document.getElementById('schedule').classList.add('hidden');document.getElementById('home').classList.remove('hidden');}
 init();
-updateMyGroupCard();
 </script>
 </body>
 </html>
