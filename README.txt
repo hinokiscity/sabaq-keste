@@ -1,3 +1,2 @@
-Sabaq Keste Mini App v6
-Xona/auditoriya ma'lumotlari Excel faylidagi s/s ustunlaridan to'ldirildi.
+Sabaq Keste Mini App v7 — Bugungi darslar funksiyasi.
 index.html va data.js fayllarini GitHub repository ildiziga almashtirib yuklang.

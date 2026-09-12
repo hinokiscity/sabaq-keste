@@ -20,6 +20,12 @@ select,input{width:100%;padding:14px;border:1px solid #d8e1ee;border-radius:14px
 .btn{border:0;border-radius:13px;padding:13px 16px;font-size:15px;font-weight:700;background:#eaf0f8;color:#284260}.primary{background:#2374e1;color:#fff}
 .row{display:flex;gap:8px;margin-top:10px}.row .btn{flex:1}
 .saved-card{padding:15px;border-radius:18px;background:#fff7df;border:1px solid #f2df9e;margin:12px 0 16px}
+.today-card{padding:15px;border-radius:18px;background:#edf7ff;border:1px solid #cfe6fb;margin:12px 0 16px}
+.today-title{font-size:14px;font-weight:800;color:#23567e}
+.today-name{font-size:18px;font-weight:800;margin:5px 0 9px}
+.today-item{padding:10px 11px;background:#fff;border-radius:12px;margin:7px 0;border:1px solid #e2edf7}
+.today-item b{display:block;line-height:1.3}
+.today-meta{font-size:12px;color:#6b7c90;margin-top:4px}
 .saved-title{font-size:14px;font-weight:800;color:#6a5313}
 .saved-name{font-size:18px;font-weight:800;margin-top:5px}
 .saved-card .row{margin-top:10px}
@@ -41,6 +47,12 @@ select,input{width:100%;padding:14px;border:1px solid #d8e1ee;border-radius:14px
 <div class="content">
 <section id="home">
 <div class="hero"><h1>Universitet dars jadvali</h1><p>Kurs va guruhni tanlang. Jadvalni Telegram ichida ko‘ring.</p></div>
+<div id="todayCard" class="today-card" style="display:none">
+  <div class="today-title">📅 Bugungi darslar</div>
+  <div id="todayName" class="today-name"></div>
+  <div id="todayLessons"></div>
+  <button class="btn primary" onclick="openTodayFull()" style="margin-top:10px">📚 To‘liq jadval</button>
+</div>
 <div id="myGroupCard" class="saved-card" style="display:none">
   <div class="saved-title">⭐ Mening guruhim</div>
   <div id="myGroupName" class="saved-name"></div>
@@ -92,6 +104,47 @@ function saveMyGroup(){
  const saved={course:courseEl.value,index:Number(groupEl.value)};
  localStorage.setItem('sabaqMyGroup',JSON.stringify(saved));
  updateMyGroupCard();
+ updateTodayCard();
+}
+function getTodayName(){
+ const names=['Yakshanba','Dushanba','Seshanba','Chorshanba','Payshanba','Juma','Shanba'];
+ try{
+   const weekday=new Intl.DateTimeFormat('uz-UZ',{weekday:'long',timeZone:'Asia/Tashkent'}).format(new Date());
+   const map={'yakshanba':'Yakshanba','dushanba':'Dushanba','seshanba':'Seshanba','chorshanba':'Chorshanba','payshanba':'Payshanba','juma':'Juma','shanba':'Shanba'};
+   return map[String(weekday).toLowerCase()] || names[new Date().getDay()];
+ }catch(e){ return names[new Date().getDay()]; }
+}
+function getSavedGroupData(){
+ const saved=getSavedGroup();
+ if(!saved || !D.courses[saved.course] || !D.courses[saved.course][saved.index]) return null;
+ return {saved, group:D.courses[saved.course][saved.index]};
+}
+function updateTodayCard(){
+ const card=document.getElementById('todayCard');
+ const saved=getSavedGroupData();
+ if(!saved){ card.style.display='none'; return; }
+ const day=getTodayName();
+ const lessons=(saved.group.schedule||[]).filter(x=>x.day===day);
+ document.getElementById('todayName').textContent=saved.group.name+' · '+day;
+ const el=document.getElementById('todayLessons');
+ if(!lessons.length){
+   el.innerHTML='<div class="empty">Bugun dars kiritilmagan.</div>';
+ }else{
+   el.innerHTML=lessons.map(x=>`
+     <div class="today-item">
+       <b>${esc(x.para)}-para · ${esc(x.subject||'Fan nomi ko‘rsatilmagan')}</b>
+       <div class="today-meta">${x.teacher?'👤 '+esc(x.teacher):''}${x.room?'  ·  🚪 '+esc(x.room):''}</div>
+     </div>`).join('');
+ }
+ card.style.display='block';
+}
+function openTodayFull(){
+ const saved=getSavedGroupData();
+ if(!saved) return;
+ courseEl.value=saved.saved.course;
+ loadGroups();
+ groupEl.value=String(saved.saved.index);
+ showSchedule(false);
 }
 function updateMyGroupCard(){
  const card=document.getElementById('myGroupCard'), name=document.getElementById('myGroupName'), saved=getSavedGroup();
@@ -105,6 +158,7 @@ function updateMyGroupCard(){
 function forgetMyGroup(){
  localStorage.removeItem('sabaqMyGroup');
  updateMyGroupCard();
+ updateTodayCard();
 }
 function openMyGroup(){
  const saved=getSavedGroup();
