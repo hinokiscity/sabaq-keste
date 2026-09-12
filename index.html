@@ -39,6 +39,11 @@ select,input{width:100%;padding:14px;border:1px solid #d8e1ee;border-radius:14px
 .subject{font-weight:800;line-height:1.32}.teacher{font-size:13px;color:#69778b;margin-top:5px;line-height:1.35}.room{align-self:start;padding:6px 8px;border-radius:9px;background:#f0f4f9;font-size:12px;color:#516075;white-space:nowrap}
 .empty,.notice{padding:14px;border-radius:14px;background:#f3f7fc;color:#63738a;font-size:13px;line-height:1.45}.notice{margin-top:14px}
 .count{font-size:12px;color:#77869b;margin-top:7px}
+.announcement-card{padding:15px;border-radius:18px;background:#fff8e8;border:1px solid #f1dfae;margin:12px 0 16px}
+.announcement-title{font-size:14px;font-weight:800;color:#6e5517;margin-bottom:8px}
+.announcement{background:#fff;border:1px solid #efe6cc;border-radius:12px;padding:11px;margin:7px 0;line-height:1.4}
+.announcement-date{display:block;font-size:11px;color:#8a7c5e;margin-top:4px}
+
 </style>
 </head>
 <body>
@@ -149,6 +154,17 @@ function openTodayFull(){
  loadGroups();
  groupEl.value=String(saved.saved.index);
  showSchedule(false);
+}
+function updateAnnouncements(){
+ const card=document.getElementById('announcementCard');
+ const box=document.getElementById('announcements');
+ const list=Array.isArray(D.announcements)?D.announcements:[];
+ if(!list.length){card.style.display='none';return;}
+ box.innerHTML=list.map(a=>`<div class="announcement">
+   <div>${esc(a.text||'')}</div>
+   ${a.date?`<span class="announcement-date">${esc(a.date)}</span>`:''}
+ </div>`).join('');
+ card.style.display='block';
 }
 function updateMyGroupCard(){
  const card=document.getElementById('myGroupCard'), name=document.getElementById('myGroupName'), saved=getSavedGroup();
