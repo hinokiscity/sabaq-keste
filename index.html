@@ -2,220 +2,81 @@
 <html lang="uz">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#2374e1">
 <title>Sabaq Keste</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="data.js"></script>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f3f6fb;color:#10213d;font-family:Arial,Helvetica,sans-serif}
-.app{max-width:620px;margin:auto;min-height:100vh;background:#fff}
-.header{position:sticky;top:0;z-index:10;padding:16px 16px 13px;border-bottom:1px solid #e6ebf2;background:rgba(255,255,255,.96);backdrop-filter:blur(8px)}
-.brand{font-size:24px;font-weight:800}.sub{font-size:13px;color:#708099;margin-top:3px}
-.content{padding:16px}
-.hero{padding:18px;border-radius:20px;background:linear-gradient(135deg,#eaf3ff,#f7fbff);margin-bottom:15px}
-.hero h1{font-size:22px;margin:0 0 6px}.hero p{margin:0;color:#5e6d84;line-height:1.45}
-label{font-size:13px;font-weight:700;color:#53627a;display:block;margin:12px 0 7px}
-select,input{width:100%;padding:14px;border:1px solid #d8e1ee;border-radius:14px;font-size:16px;background:#fff;color:#10213d}
-.btn{border:0;border-radius:13px;padding:13px 16px;font-size:15px;font-weight:700;background:#eaf0f8;color:#284260}.primary{background:#2374e1;color:#fff}.backbtn{display:inline-flex;align-items:center;gap:6px;margin-bottom:10px;background:#eaf0f8;color:#2374e1;border:1px solid #d9e5f3}
-.row{display:flex;gap:8px;margin-top:10px}.row .btn{flex:1}
-.saved-card{padding:15px;border-radius:18px;background:#fff7df;border:1px solid #f2df9e;margin:12px 0 16px}
-.today-card{padding:15px;border-radius:18px;background:#edf7ff;border:1px solid #cfe6fb;margin:12px 0 16px}
-.today-title{font-size:14px;font-weight:800;color:#23567e}
-.today-name{font-size:18px;font-weight:800;margin:5px 0 9px}
-.today-item{padding:10px 11px;background:#fff;border-radius:12px;margin:7px 0;border:1px solid #e2edf7}
-.today-item b{display:block;line-height:1.3}
-.today-meta{font-size:12px;color:#6b7c90;margin-top:4px}
-.saved-title{font-size:14px;font-weight:800;color:#6a5313}
-.saved-name{font-size:18px;font-weight:800;margin-top:5px}
-.saved-card .row{margin-top:10px}
-.hidden{display:none}.back{border:0;background:none;color:#2374e1;padding:0 0 10px;font-size:15px}
-.headrow{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.headrow h2{font-size:23px;margin:0 0 3px}.spec{font-size:13px;color:#738098;text-align:right}
-.days{display:flex;gap:7px;overflow:auto;padding-bottom:4px;margin:12px 0}
-.day{flex:0 0 auto;border:0;border-radius:12px;padding:9px 12px;background:#edf1f7;color:#29405e;font-weight:700}.day.active{background:#2374e1;color:#fff}
-.day small{font-size:11px;font-weight:400}.section-title{font-size:18px;font-weight:800;margin:8px 0 9px}
-.lesson{display:grid;grid-template-columns:68px 1fr auto;gap:11px;padding:14px;border:1px solid #e3e9f1;border-radius:16px;margin:9px 0;box-shadow:0 4px 13px rgba(28,56,91,.06)}
-.para{font-weight:800;color:#2374e1}.para small{display:block;color:#7b8799;font-weight:400;margin-top:3px}
-.subject{font-weight:800;line-height:1.32}.teacher{font-size:13px;color:#69778b;margin-top:5px;line-height:1.35}.room{align-self:start;padding:6px 8px;border-radius:9px;background:#f0f4f9;font-size:12px;color:#516075;white-space:nowrap}
-.empty,.notice{padding:14px;border-radius:14px;background:#f3f7fc;color:#63738a;font-size:13px;line-height:1.45}.notice{margin-top:14px}
-.count{font-size:12px;color:#77869b;margin-top:7px}
-.announcement-card{padding:15px;border-radius:18px;background:#fff8e8;border:1px solid #f1dfae;margin:12px 0 16px}
-.announcement-title{font-size:14px;font-weight:800;color:#6e5517;margin-bottom:8px}
-.announcement{background:#fff;border:1px solid #efe6cc;border-radius:12px;padding:11px;margin:7px 0;line-height:1.4}
-.announcement-date{display:block;font-size:11px;color:#8a7c5e;margin-top:4px}
-
+:root{--blue:#2374e1;--ink:#10213d;--muted:#6f7d91;--bg:#f3f6fb;--line:#e2e8f0}
+*{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+body{min-height:100vh}.app{max-width:640px;min-height:100vh;margin:auto;background:#fff}
+.header{position:sticky;top:0;z-index:20;padding:15px 16px 13px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.97);backdrop-filter:blur(8px)}
+.brand{font-size:24px;font-weight:800}.sub{margin-top:3px;font-size:13px;color:var(--muted)}
+.content{padding:16px}.hero{padding:18px;border-radius:20px;background:linear-gradient(135deg,#eaf3ff,#f8fbff);margin-bottom:14px}.hero h1{margin:0 0 6px;font-size:22px}.hero p{margin:0;color:#5d6d84;line-height:1.45}
+.card{padding:15px;border-radius:18px;margin:12px 0 16px;border:1px solid var(--line);background:#fff;box-shadow:0 4px 14px rgba(25,50,80,.05)}
+.saved{background:#fff8e4;border-color:#f0dfa7}.today{background:#edf7ff;border-color:#cde6fb}.saved-title,.today-title,.ann-title{font-size:14px;font-weight:800}.saved-title{color:#6c5414}.today-title{color:#23567e}.ann-title{color:#6b5319}.saved-name,.today-name{font-size:18px;font-weight:800;margin-top:5px}
+label{display:block;margin:12px 0 7px;font-size:13px;font-weight:800;color:#53627a}
+select,input{width:100%;padding:14px;border:1px solid #d7e0eb;border-radius:14px;background:#fff;color:var(--ink);font-size:16px;outline:none}select:focus,input:focus{border-color:#8fb7ef;box-shadow:0 0 0 3px #e7f0fe}
+.row{display:flex;gap:8px;margin-top:10px}.row .btn{flex:1}.btn{border:0;border-radius:13px;padding:13px 15px;font-size:15px;font-weight:800;background:#eaf0f8;color:#294260;cursor:pointer}.btn:active{transform:translateY(1px)}.primary{background:var(--blue);color:#fff}.secondary{background:#eef3f9;color:#2f4967}
+.backbtn{margin-bottom:12px;background:#eef3f9;color:var(--blue);border:1px solid #d9e5f3;flex:0 0 auto!important}
+.hidden{display:none!important}.count{margin-top:7px;font-size:12px;color:#77869b}.notice,.empty{padding:13px 14px;border-radius:14px;background:#f3f7fc;color:#63738a;font-size:13px;line-height:1.45}.notice{margin-top:14px}
+.days{display:flex;gap:7px;overflow:auto;padding:2px 0 5px;margin:12px 0 14px}.day{flex:0 0 auto;border:0;border-radius:12px;padding:9px 12px;background:#edf1f7;color:#29405e;font-weight:800;cursor:pointer}.day.active{background:var(--blue);color:#fff}.day small{font-size:11px;font-weight:400}
+.section-title{margin:8px 0 9px;font-size:18px;font-weight:800}.lesson{display:grid;grid-template-columns:66px 1fr auto;gap:11px;align-items:start;padding:14px;border:1px solid var(--line);border-radius:16px;margin:9px 0;box-shadow:0 4px 13px rgba(28,56,91,.05)}
+.para{font-weight:800;color:var(--blue)}.para small{display:block;margin-top:3px;color:#7b8799;font-weight:400}.subject{font-weight:800;line-height:1.32}.teacher{margin-top:5px;color:#68778b;font-size:13px;line-height:1.35}.room{padding:6px 8px;border-radius:9px;background:#f0f4f9;color:#526177;font-size:12px;white-space:nowrap}.mini{padding:10px 11px;border-radius:12px;margin:7px 0;background:#fff;border:1px solid #e0ebf5}.mini b{display:block;line-height:1.3}.mini span{display:block;margin-top:4px;font-size:12px;color:#6b7c90}
+.ann{padding:10px 11px;border-radius:12px;background:#fff;border:1px solid #eee1bd;margin:7px 0;line-height:1.4}.ann-date{display:block;margin-top:4px;color:#8a7c5e;font-size:11px}
+@media(max-width:420px){.lesson{grid-template-columns:58px 1fr}.room{grid-column:2;justify-self:start;margin-top:-4px}.brand{font-size:22px}}
 </style>
 </head>
 <body>
 <div class="app">
-<div class="header"><div class="brand">🎓 Sabaq Keste</div><div class="sub">ETIF · 2026–2027</div></div>
-<div class="content">
+<header class="header"><div class="brand">🎓 Sabaq Keste</div><div class="sub">ETIF · 2026–2027</div></header>
+<main class="content">
 <section id="home">
-<div class="hero"><h1>Universitet dars jadvali</h1><p>Kurs va guruhni tanlang. Jadvalni Telegram ichida ko‘ring.</p></div>
-<div id="todayCard" class="today-card" style="display:none">
-  <div class="today-title">📅 Bugungi darslar</div>
-  <div id="todayName" class="today-name"></div>
-  <div id="todayLessons"></div>
-  <button class="btn primary" onclick="openTodayFull()" style="margin-top:10px">📚 To‘liq jadval</button>
-</div><div id="announcementCard" class="announcement-card" style="display:none">
-  <div class="announcement-title">📢 E’lonlar</div>
-  <div id="announcements"></div>
-</div>
-<div id="myGroupCard" class="saved-card" style="display:none">
-  <div class="saved-title">⭐ Mening guruhim</div>
-  <div id="myGroupName" class="saved-name"></div>
-  <div class="row">
-    <button class="btn primary" onclick="openMyGroup()">📚 Jadvalni ochish</button>
-    <button class="btn" onclick="forgetMyGroup()">O‘chirish</button>
-  </div>
-</div>
+<div class="hero"><h1>Universitet dars jadvali</h1><p>Kurs va guruhni tanlang. Jadvalni Telegram ichida qulay ko‘ring.</p></div>
+<div id="savedCard" class="card saved hidden"><div class="saved-title">⭐ Mening guruhim</div><div id="savedName" class="saved-name"></div><div class="row"><button id="openSaved" class="btn primary">📚 Jadvalni ochish</button><button id="forgetSaved" class="btn secondary">O‘chirish</button></div></div>
+<div id="todayCard" class="card today hidden"><div class="today-title">📅 Bugungi darslar</div><div id="todayName" class="today-name"></div><div id="todayLessons"></div><button id="openToday" class="btn primary" style="margin-top:10px">📚 To‘liq jadval</button></div>
+<div id="announcementCard" class="card hidden"><div class="ann-title">📢 E’lonlar</div><div id="announcements"></div></div>
 <label for="course">Kurs</label><select id="course"></select>
-<label for="search">Guruhni qidirish</label><input id="search" placeholder="Masalan: 309-25 JK">
+<label for="search">Guruhni qidirish</label><input id="search" autocomplete="off" placeholder="Masalan: 309-25 JK">
 <label for="group">Guruh</label><select id="group"></select>
-<div class="row"><button class="btn primary" onclick="showSchedule()">📚 Jadval</button><button class="btn" onclick="resetAll()">Tozalash</button></div>
-<div class="count" id="count"></div>
-<div class="notice">Jadval yuborilgan Excel fayldan olindi. Para vaqtlari hozircha ko‘rsatilmaydi; faqat I–IV para tartibi beriladi.</div>
+<div class="row"><button id="showBtn" class="btn primary">📚 Jadval</button><button id="resetBtn" class="btn secondary">Tozalash</button></div>
+<div id="count" class="count"></div>
+<div class="notice">Jadval Excel faylidagi ma’lumotlardan olindi. Para vaqtlari hozircha ko‘rsatilmaydi.</div>
 </section>
 <section id="schedule" class="hidden">
-<button class="btn backbtn" onclick="goHome()">← Guruhni almashtirish</button>
-<div class="headrow"><div><h2 id="groupTitle"></h2><div class="count" id="courseTitle"></div></div><div class="spec" id="specialty"></div></div>
-<div class="days" id="days"></div>
-<div id="body"></div>
-<div class="notice">⚠️ Yangi jadval chiqqanda <b>data.js</b> yangilanadi. Telegramdagi havola o‘zgarmaydi.</div>
+<button id="backBtn" class="btn backbtn">← Guruhni almashtirish</button>
+<div class="headrow"><div><h2 id="groupTitle" style="margin:0 0 3px;font-size:23px"></h2><div id="courseTitle" class="count"></div></div><div id="specialty" class="spec" style="font-size:13px;color:#738098;text-align:right"></div></div>
+<div id="days" class="days"></div><div id="scheduleBody"></div>
+<div class="notice">⚠️ Jadval yangilanganda shu Mini App havolasi o‘zgarmaydi.</div>
 </section>
-</div></div>
+</main></div>
 <script>
-const D=window.SABAQ_DATA, days=D.days;
-const courseEl=document.getElementById('course'), groupEl=document.getElementById('group'), searchEl=document.getElementById('search');
+const D=window.SABAQ_DATA||{};
+const DAYS=Array.isArray(D.days)&&D.days.length?D.days:['Dushanba','Seshanba','Chorshanba','Payshanba','Juma','Shanba'];
+const courseEl=document.getElementById('course'),groupEl=document.getElementById('group'),searchEl=document.getElementById('search');
+const home=document.getElementById('home'),schedule=document.getElementById('schedule');
 let currentGroups=[];
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
-function init(){
- courseEl.innerHTML='<option value="">— Kursni tanlang —</option>';
- Object.keys(D.courses).forEach(c=>courseEl.insertAdjacentHTML('beforeend',`<option value="${esc(c)}">${esc(c)}</option>`));
- courseEl.onchange=loadGroups; searchEl.oninput=loadGroups;
- loadGroups();
-}
-function loadGroups(){
- currentGroups=D.courses[courseEl.value]||[];
- const q=searchEl.value.trim().toLowerCase();
- const filtered=currentGroups.filter(g=>g.name.toLowerCase().includes(q));
- groupEl.innerHTML='<option value="">— Guruhni tanlang —</option>';
- filtered.forEach((g,i)=>groupEl.insertAdjacentHTML('beforeend',`<option value="${currentGroups.indexOf(g)}">${esc(g.name)}</option>`));
- document.getElementById('count').textContent=courseEl.value?`${filtered.length} ta guruh topildi`:'';
-}
-function resetAll(){courseEl.value='';searchEl.value='';loadGroups();}
-function getSavedGroup(){
- try { return JSON.parse(localStorage.getItem('sabaqMyGroup') || 'null'); }
- catch(e){ return null; }
-}
-function saveMyGroup(){
- const saved={course:courseEl.value,index:Number(groupEl.value)};
- localStorage.setItem('sabaqMyGroup',JSON.stringify(saved));
- updateMyGroupCard();
- updateTodayCard();
- updateTodayCard();
-}
-function getTodayName(){
- const names=['Yakshanba','Dushanba','Seshanba','Chorshanba','Payshanba','Juma','Shanba'];
- try{
-   const weekday=new Intl.DateTimeFormat('uz-UZ',{weekday:'long',timeZone:'Asia/Tashkent'}).format(new Date());
-   const map={'yakshanba':'Yakshanba','dushanba':'Dushanba','seshanba':'Seshanba','chorshanba':'Chorshanba','payshanba':'Payshanba','juma':'Juma','shanba':'Shanba'};
-   return map[String(weekday).toLowerCase()] || names[new Date().getDay()];
- }catch(e){ return names[new Date().getDay()]; }
-}
-function getSavedGroupData(){
- const saved=getSavedGroup();
- if(!saved || !D.courses[saved.course] || !D.courses[saved.course][saved.index]) return null;
- return {saved, group:D.courses[saved.course][saved.index]};
-}
-function updateTodayCard(){
- const card=document.getElementById('todayCard');
- const saved=getSavedGroupData();
- if(!saved){ card.style.display='none'; return; }
- const day=getTodayName();
- const lessons=(saved.group.schedule||[]).filter(x=>x.day===day);
- document.getElementById('todayName').textContent=saved.group.name+' · '+day;
- const el=document.getElementById('todayLessons');
- if(!lessons.length){
-   el.innerHTML='<div class="empty">Bugun dars kiritilmagan.</div>';
- }else{
-   el.innerHTML=lessons.map(x=>`
-     <div class="today-item">
-       <b>${esc(x.para)}-para · ${esc(x.subject||'Fan nomi ko‘rsatilmagan')}</b>
-       <div class="today-meta">${x.teacher?'👤 '+esc(x.teacher):''}${x.room?'  ·  🚪 '+esc(x.room):''}</div>
-     </div>`).join('');
- }
- card.style.display='block';
-}
-function openTodayFull(){
- const saved=getSavedGroupData();
- if(!saved) return;
- courseEl.value=saved.saved.course;
- loadGroups();
- groupEl.value=String(saved.saved.index);
- showSchedule(false);
-}
-function updateAnnouncements(){
- const card=document.getElementById('announcementCard');
- const box=document.getElementById('announcements');
- const list=Array.isArray(D.announcements)?D.announcements:[];
- if(!list.length){card.style.display='none';return;}
- box.innerHTML=list.map(a=>`<div class="announcement">
-   <div>${esc(a.text||'')}</div>
-   ${a.date?`<span class="announcement-date">${esc(a.date)}</span>`:''}
- </div>`).join('');
- card.style.display='block';
-}
-function updateMyGroupCard(){
- const card=document.getElementById('myGroupCard'), name=document.getElementById('myGroupName'), saved=getSavedGroup();
- if(!saved || !D.courses[saved.course] || !D.courses[saved.course][saved.index]){
-   card.style.display='none'; return;
- }
- const g=D.courses[saved.course][saved.index];
- name.textContent=g.name+' · '+saved.course;
- card.style.display='block';
-}
-function forgetMyGroup(){
- localStorage.removeItem('sabaqMyGroup');
- updateMyGroupCard();
- updateTodayCard();
- updateTodayCard();
-}
-function openMyGroup(){
- const saved=getSavedGroup();
- if(!saved || !D.courses[saved.course] || !D.courses[saved.course][saved.index]){
-   updateMyGroupCard(); return;
- }
- courseEl.value=saved.course;
- loadGroups();
- groupEl.value=String(saved.index);
- showSchedule(false);
-}
-function showSchedule(saveChoice=true){
- if(!courseEl.value||groupEl.value===''){alert('Kurs va guruhni tanlang.');return;}
- if(saveChoice) saveMyGroup();
- const g=currentGroups[Number(groupEl.value)];
- document.getElementById('groupTitle').textContent=g.name;
- document.getElementById('courseTitle').textContent=courseEl.value;
- document.getElementById('specialty').textContent=g.specialty||'';
- renderDays(g);
- document.getElementById('home').classList.add('hidden');
- document.getElementById('schedule').classList.remove('hidden');
- if(window.Telegram?.WebApp) Telegram.WebApp.expand();
-}
-
-function renderDays(g){const el=document.getElementById('days');el.innerHTML='';days.forEach((d,i)=>el.insertAdjacentHTML('beforeend',`<button class="day ${i===0?'active':''}" onclick="selectDay('${d}',this)">${d.slice(0,2)}<br><small>${d}</small></button>`));renderDay(g,days[0]);}
-function selectDay(d,b){document.querySelectorAll('.day').forEach(x=>x.classList.remove('active'));b.classList.add('active');const g=currentGroups[Number(groupEl.value)];renderDay(g,d);}
-function renderDay(g,d){
- const items=(g.schedule||[]).filter(x=>x.day===d), body=document.getElementById('body');
- if(!items.length){body.innerHTML=`<div class="section-title">${esc(d)}</div><div class="empty">Bu kun uchun dars kiritilmagan.</div>`;return;}
- body.innerHTML=`<div class="section-title">${esc(d)}</div>`+items.map(x=>`<div class="lesson"><div class="para">${esc(x.para)}<small>${esc(x.para)}-para</small></div><div><div class="subject">${esc(x.subject)}</div>${x.teacher?`<div class="teacher">👤 ${esc(x.teacher)}</div>`:''}</div>${x.room?`<div class="room">🚪 ${esc(x.room)}</div>`:''}</div>`).join('');
-}
-function goHome(){document.getElementById('schedule').classList.add('hidden');document.getElementById('home').classList.remove('hidden');}
+function saved(){try{return JSON.parse(localStorage.getItem('sabaqMyGroup')||'null')}catch(e){return null}}
+function savedInfo(){const s=saved();return s&&D.courses?.[s.course]?.[s.index]?{s,g:D.courses[s.course][s.index]}:null}
+function saveCurrent(){localStorage.setItem('sabaqMyGroup',JSON.stringify({course:courseEl.value,index:Number(groupEl.value)}));renderSaved();renderToday()}
+function removeSaved(){localStorage.removeItem('sabaqMyGroup');renderSaved();renderToday()}
+function renderSaved(){const card=document.getElementById('savedCard'),name=document.getElementById('savedName'),info=savedInfo();if(!info){card.classList.add('hidden');return}name.textContent=info.g.name+' · '+info.s.course;card.classList.remove('hidden')}
+function todayName(){return DAYS[new Date().getDay()-1]||null}
+function renderToday(){const card=document.getElementById('todayCard'),info=savedInfo();if(!info){card.classList.add('hidden');return}const day=todayName();document.getElementById('todayName').textContent=info.g.name+' · '+(day||'Yakshanba');const box=document.getElementById('todayLessons');if(!day){box.innerHTML='<div class="empty">Bugun dars kiritilmagan.</div>'}else{const items=(info.g.schedule||[]).filter(x=>x.day===day);box.innerHTML=items.length?items.map(x=>`<div class="mini"><b>${esc(x.para)}-para · ${esc(x.subject||'Fan nomi ko‘rsatilmagan')}</b><span>${x.teacher?'👤 '+esc(x.teacher):''}${x.room?' · 🚪 '+esc(x.room):''}</span></div>`).join(''):'<div class="empty">Bugun dars kiritilmagan.</div>'}card.classList.remove('hidden')}
+function renderAnnouncements(){const list=Array.isArray(D.announcements)?D.announcements:[];const card=document.getElementById('announcementCard'),box=document.getElementById('announcements');if(!list.length){card.classList.add('hidden');return}box.innerHTML=list.map(a=>`<div class="ann"><div>${esc(a.text||'')}</div>${a.date?`<span class="ann-date">${esc(a.date)}</span>`:''}</div>`).join('');card.classList.remove('hidden')}
+function loadGroups(){currentGroups=D.courses?.[courseEl.value]||[];const q=searchEl.value.trim().toLowerCase();const filtered=currentGroups.filter(g=>String(g.name).toLowerCase().includes(q));groupEl.innerHTML='<option value="">— Guruhni tanlang —</option>';filtered.forEach(g=>groupEl.insertAdjacentHTML('beforeend',`<option value="${currentGroups.indexOf(g)}">${esc(g.name)}</option>`));document.getElementById('count').textContent=courseEl.value?`${filtered.length} ta guruh topildi`:''}
+function init(){courseEl.innerHTML='<option value="">— Kursni tanlang —</option>';Object.keys(D.courses||{}).forEach(c=>courseEl.insertAdjacentHTML('beforeend',`<option value="${esc(c)}">${esc(c)}</option>`));courseEl.onchange=loadGroups;searchEl.oninput=loadGroups;loadGroups();renderSaved();renderToday();renderAnnouncements()}
+function showSchedule(shouldSave){if(!courseEl.value||groupEl.value===''){alert('Kurs va guruhni tanlang.');return}if(shouldSave)saveCurrent();const g=currentGroups[Number(groupEl.value)];document.getElementById('groupTitle').textContent=g.name;document.getElementById('courseTitle').textContent=courseEl.value;document.getElementById('specialty').textContent=g.specialty||'';renderDays(g);home.classList.add('hidden');schedule.classList.remove('hidden');try{window.Telegram?.WebApp?.expand()}catch(e){}}
+function showSaved(){const info=savedInfo();if(!info)return;courseEl.value=info.s.course;loadGroups();groupEl.value=String(info.s.index);showSchedule(false)}
+function showToday(){showSaved();if(!schedule.classList.contains('hidden')){const info=savedInfo(),day=todayName();if(day){const i=DAYS.indexOf(day);const btn=document.querySelectorAll('#days .day')[i];if(btn)selectDay(day,btn)}}}
+function renderDays(g){const el=document.getElementById('days');el.innerHTML='';DAYS.forEach((d,i)=>el.insertAdjacentHTML('beforeend',`<button class="day ${i===0?'active':''}" data-day="${esc(d)}">${esc(d.slice(0,2))}<br><small>${esc(d)}</small></button>`));el.querySelectorAll('.day').forEach(b=>b.addEventListener('click',()=>selectDay(b.dataset.day,b)));renderDay(g,DAYS[0])}
+function selectDay(d,b){document.querySelectorAll('#days .day').forEach(x=>x.classList.remove('active'));b.classList.add('active');const g=currentGroups[Number(groupEl.value)]||savedInfo()?.g;renderDay(g,d)}
+function renderDay(g,d){const body=document.getElementById('scheduleBody'),items=(g?.schedule||[]).filter(x=>x.day===d);if(!items.length){body.innerHTML=`<div class="section-title">${esc(d)}</div><div class="empty">Bu kun uchun dars kiritilmagan.</div>`;return}body.innerHTML=`<div class="section-title">${esc(d)}</div>`+items.map(x=>`<div class="lesson"><div class="para">${esc(x.para)}<small>${esc(x.para)}-para</small></div><div><div class="subject">${esc(x.subject||'')}</div>${x.teacher?`<div class="teacher">👤 ${esc(x.teacher)}</div>`:''}</div>${x.room?`<div class="room">🚪 ${esc(x.room)}</div>`:''}</div>`).join('')}
+function goHome(){schedule.classList.add('hidden');home.classList.remove('hidden');window.scrollTo(0,0);renderSaved();renderToday()}
+function resetAll(){courseEl.value='';searchEl.value='';loadGroups()}
+document.getElementById('showBtn').onclick=()=>showSchedule(true);document.getElementById('resetBtn').onclick=resetAll;document.getElementById('backBtn').onclick=goHome;document.getElementById('openSaved').onclick=showSaved;document.getElementById('forgetSaved').onclick=removeSaved;document.getElementById('openToday').onclick=showToday;
 init();
-updateMyGroupCard();
-updateTodayCard();
-updateAnnouncements();
 </script>
-</body>
-</html>
+</body></html>
